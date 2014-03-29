@@ -10,7 +10,7 @@
 <![endif]-->
 
 <!--[if gt IE 8]><!-->
-<html class="no-js" id="ng-app" xmlns:ng="http://angularjs.org" data-ng-app="mfm.UI.Component.About">
+<html class="no-js" id="ng-app" xmlns:ng="http://angularjs.org" data-ng-app="{%= moduleName %}">
 <!--<![endif]-->
   <head>
 
@@ -34,10 +34,7 @@
   <body
     data-ng-cloak>
 
-    <div class='foo'>
-
-    <div>
-    </div>
+    <div data-foo-root></div>
 
 
     <!-- bower:js -->

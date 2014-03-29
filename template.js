@@ -72,7 +72,7 @@ exports.template = function(grunt, init, done){
 
     packageJson.scripts = {
       test: './node_modules/.bin/grunt test',
-      postinstall: './node_modules/.bin/bower install',
+      postinstall: './node_modules/.bin/bower install && chmod +x develop && chmod +x build && ./build',
       start: 'node index.js'
     };
 

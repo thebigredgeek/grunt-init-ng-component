@@ -3,9 +3,7 @@
 
 module.exports = function(grunt){
 
-  require('load-grunt-tasks')(grunt);
-
-  grunt.initConfig({
+  var config = {
 
     module: {
       pkg: grunt.file.readJSON('./bower.json'),
@@ -71,7 +69,8 @@ module.exports = function(grunt){
         options: {
           sourceMap: true,
           mangle: false,
-          banner: '<%= module.banner %>'
+          banner: '<%= module.banner %>',
+          wrap: '<%= module.alias %>'
         },
 
         files: {
@@ -135,7 +134,7 @@ module.exports = function(grunt){
             cwd: '<%= module.src %>/',
             src: ['images/*'],
             dest: '<%= module.staging %>/',
-            filter: 'isFIle'
+            filter: 'isFile'
           }
 
         ]
@@ -224,11 +223,21 @@ module.exports = function(grunt){
         }
       },
 
+      images: {
+        files: [
+          '<%= module.src %>/images/*.*'
+        ],
+        tasks: ['copy:images'],
+        options: {
+          atBegin: true
+        }
+      },
+
       components: {
         files: [
-          '<%= module.components %>/**'
+          '<%= module.components %>/*'
         ],
-        tasks: ['copy:components','bowerInstall','copy:index'],
+        tasks: ['copy:components','bowerInstall'],
         options: {
           atBegin: true
         }
@@ -268,7 +277,10 @@ module.exports = function(grunt){
             collapseWhitespace: true,
             removeComments: true
           },
-          module: '<%= module.alias %>'
+          module: '<%= module.alias %>',
+          url: function(url){
+            return config.module.pkg.name + '/' + url;
+          }
         }
       }
 
@@ -330,7 +342,11 @@ module.exports = function(grunt){
       staging: '<%= module.staging %>'
     }
 
-  });
+  };
+
+  require('load-grunt-tasks')(grunt);
+
+  grunt.initConfig(config);
 
   grunt.registerTask('default',[
     'clean:staging',
