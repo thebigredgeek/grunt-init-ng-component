@@ -92,7 +92,10 @@ exports.template = function(grunt, init, done){
       props['License (MIT) '];
 
     bowerJson.dependencies = {
-      angular: '~1.2.15',
+      angular: '~1.2.15'
+    };
+
+    bowerJson.devDependencies = {
       'angular-mocks': '~1.2.15'
     };
 
